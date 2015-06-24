@@ -29,13 +29,14 @@ read password
 
 # Set user & password
 # Replace $username and $password
-echo "$username    pptpd   $password  *" >> /etc/ppp/chap-secrets
+echo "$username    pptpd   $password  *" >! /etc/ppp/chap-secrets
 
 # Restart PPTPD to reload all config
 service pptpd restart
 
 # Forward packet between localip and remoteip
 echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
+echo "net.ipv6.conf.all.forwarding = 1" >> /etc/sysctl.conf
 
 # Restart sysctl to reload config
 sysctl -p
